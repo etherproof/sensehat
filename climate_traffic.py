@@ -47,208 +47,208 @@ def timed_job():
     
     ## ANALYSIS ##
     # Separate out datasets for the last 10, 20 and 30 minutes
-    readings10 = readings.tail(10)
-    readings20 = readings.tail(20)
-    readings30 = readings.tail(30)    
+    readingsA = readings.tail(10)
+    readingsB = readings.tail(20)
+    readingsC = readings.tail(30)    
     
     # Work out mean values for each time frame
-    Tmean10 = readings10["T"].mean()
-    Tmean20 = readings20["T"].mean()
-    Tmean30 = readings30["T"].mean()
-    Hmean10 = readings10["H"].mean()
-    Hmean20 = readings20["H"].mean()
-    Hmean30 = readings30["H"].mean()
-    Pmean10 = readings10["P"].mean()
-    Pmean20 = readings20["P"].mean()
-    Pmean30 = readings30["P"].mean()
+    TmeanA = readingsA["T"].mean()
+    TmeanB = readingsB["T"].mean()
+    TmeanC = readingsC["T"].mean()
+    HmeanA = readingsA["H"].mean()
+    HmeanB = readingsB["H"].mean()
+    HmeanC = readingsC["H"].mean()
+    PmeanA = readingsA["P"].mean()
+    PmeanB = readingsB["P"].mean()
+    PmeanC = readingsC["P"].mean()
     
     # Work out standard deviations for each time frame
-    Tdev10 = readings10["T"].std()
-    Tdev20 = readings20["T"].std()
-    Tdev30 = readings30["T"].std()
-    Hdev10 = readings10["H"].std()
-    Hdev20 = readings20["H"].std()
-    Hdev30 = readings30["H"].std()
-    Pdev10 = readings10["P"].std()
-    Pdev20 = readings20["P"].std()
-    Pdev30 = readings30["P"].std()
+    TdevA = readingsA["T"].std()
+    TdevB = readingsB["T"].std()
+    TdevC = readingsC["T"].std()
+    HdevA = readingsA["H"].std()
+    HdevB = readingsB["H"].std()
+    HdevC = readingsC["H"].std()
+    PdevA = readingsA["P"].std()
+    PdevB = readingsB["P"].std()
+    PdevC = readingsC["P"].std()
 
     # Print table with metrics
     print("10 minutes\t Mean\t StdDev")
-    print("Temperature\t %s\t %s" % (round(Tmean10, 1), round(Tdev10, 2)))
-    print("Humidity\t %s\t %s" % (round(Hmean10, 1), round(Hdev10, 2)))
-    print("Pressure\t %s\t %s\n" % (round(Pmean10, 1), round(Pdev10, 2)))
+    print("Temperature\t %s\t %s" % (round(TmeanA, 1), round(TdevA, 2)))
+    print("Humidity\t %s\t %s" % (round(HmeanA, 1), round(HdevA, 2)))
+    print("Pressure\t %s\t %s\n" % (round(PmeanA, 1), round(PdevA, 2)))
 
     print("20 minutes\t Mean\t StdDev")
-    print("Temperature\t %s\t %s" % (round(Tmean20, 1), round(Tdev20, 2)))
-    print("Humidity\t %s\t %s" % (round(Hmean20, 1), round(Hdev20, 2)))
-    print("Pressure\t %s\t %s\n" % (round(Pmean20, 1), round(Pdev20, 2)))
+    print("Temperature\t %s\t %s" % (round(TmeanB, 1), round(TdevB, 2)))
+    print("Humidity\t %s\t %s" % (round(HmeanB, 1), round(HdevB, 2)))
+    print("Pressure\t %s\t %s\n" % (round(PmeanB, 1), round(PdevB, 2)))
     
     print("30 minutes\t Mean\t StdDev")
-    print("Temperature\t %s\t %s" % (round(Tmean30, 1), round(Tdev30, 2)))
-    print("Humidity\t %s\t %s" % (round(Hmean30, 1), round(Hdev30, 2)))
-    print("Pressure\t %s\t %s\n" % (round(Pmean30, 1), round(Pdev30, 2)))
+    print("Temperature\t %s\t %s" % (round(TmeanC, 1), round(TdevC, 2)))
+    print("Humidity\t %s\t %s" % (round(HmeanC, 1), round(HdevC, 2)))
+    print("Pressure\t %s\t %s\n" % (round(PmeanC, 1), round(PdevC, 2)))
 
     # 10 min temp test
-    print("Over the past 10 minutes, temperature is within:")
-    if temp <= Tmean10 - 2*Tdev10:
-        print("-2sd\n")
+    #print("Over the past 10 minutes, temperature is within:")
+    if temp <= TmeanA - 2*TdevA:
+        #print("-2sd\n")
         sense.set_pixel(0, 0, 255, 0, 0)
-    elif temp <= Tmean10 - Tdev10:
-        print("-1sd\n")
+    elif temp <= TmeanA - TdevA:
+        #print("-1sd\n")
         sense.set_pixel(0, 0, 255, 255, 0)
-    elif temp >= Tmean10 + 2*Tdev10:
-        print("+2sd\n")
+    elif temp >= TmeanA + 2*TdevA:
+        #print("+2sd\n")
         sense.set_pixel(0, 0, 255, 0, 0)
-    elif temp >= Tmean10 + Tdev10:
-        print("+1sd\n")
+    elif temp >= TmeanA + TdevA:
+        #print("+1sd\n")
         sense.set_pixel(0, 0, 255, 255, 0)
     else:
-        print("mean\n")
+        #print("mean\n")
         sense.set_pixel(0, 0, 0, 255, 0)
 
     # 20 min temp test
-    print("Over the past 20 minutes, temperature is within:")
-    if temp <= Tmean20 - 2*Tdev20:
-        print("-2sd\n")
+    #print("Over the past 20 minutes, temperature is within:")
+    if temp <= TmeanB - 2*TdevB:
+        #print("-2sd\n")
         sense.set_pixel(1, 0, 255, 0, 0)
-    elif temp <= Tmean20 - Tdev20:
-        print("-1sd\n")
+    elif temp <= TmeanB - TdevB:
+        #print("-1sd\n")
         sense.set_pixel(1, 0, 255, 255, 0)
-    elif temp >= Tmean20 + 2*Tdev20:
-        print("+2sd\n")
+    elif temp >= TmeanB + 2*TdevB:
+        #print("+2sd\n")
         sense.set_pixel(1, 0, 255, 0, 0)
-    elif temp >= Tmean20 + Tdev20:
-        print("+1sd\n")
+    elif temp >= TmeanB + TdevB:
+        #print("+1sd\n")
         sense.set_pixel(1, 0, 255, 255, 0)
     else:
-        print("mean\n")
+        #print("mean\n")
         sense.set_pixel(1, 0, 0, 255, 0)
 
     # 30 min temp test
-    print("Over the past 30 minutes, temperature is within:")
-    if temp <= Tmean30 - 2*Tdev30:
-        print("-2sd\n")
+    #print("Over the past 30 minutes, temperature is within:")
+    if temp <= TmeanC - 2*TdevC:
+        #print("-2sd\n")
         sense.set_pixel(2, 0, 255, 0, 0)
-    elif temp <= Tmean30 - Tdev30:
-        print("-1sd\n")
+    elif temp <= TmeanC - TdevC:
+        #print("-1sd\n")
         sense.set_pixel(2, 0, 255, 255, 0)
-    elif temp >= Tmean30 + 2*Tdev30:
-        print("+2sd\n")
+    elif temp >= TmeanC + 2*TdevC:
+        #print("+2sd\n")
         sense.set_pixel(2, 0, 255, 0, 0)
-    elif temp >= Tmean30 + Tdev30:
-        print("+1sd\n")
+    elif temp >= TmeanC + TdevC:
+        #print("+1sd\n")
         sense.set_pixel(2, 0, 255, 255, 0)
     else:
-        print("mean\n")
+        #print("mean\n")
         sense.set_pixel(2, 0, 0, 255, 0)
 
     # 10 min humidity test
-    print("Over the past 10 minutes, humidity is within:")
-    if humidity <= Hmean10 - 2*Hdev10:
-        print("-2sd\n")
+    #print("Over the past 10 minutes, humidity is within:")
+    if humidity <= HmeanA - 2*HdevA:
+        #print("-2sd\n")
         sense.set_pixel(0, 1, 255, 0, 0)
-    elif humidity <= Hmean10 - Hdev10:
-        print("-1sd\n")
+    elif humidity <= HmeanA - HdevA:
+        #print("-1sd\n")
         sense.set_pixel(0, 1, 255, 255, 0)
-    elif humidity >= Hmean10 + 2*Hdev10:
-        print("+2sd\n")
+    elif humidity >= HmeanA + 2*HdevA:
+        #print("+2sd\n")
         sense.set_pixel(0, 1, 255, 0, 0)
-    elif humidity >= Hmean10 + Hdev10:
-        print("+1sd\n")
+    elif humidity >= HmeanA + HdevA:
+        #print("+1sd\n")
         sense.set_pixel(0, 1, 255, 255, 0)
     else:
-        print("mean\n")
+        #print("mean\n")
         sense.set_pixel(0, 1, 0, 255, 0)
 
     # 20 min humidity test
-    print("Over the past 20 minutes, humidity is within:")
-    if humidity <= Hmean20 - 2*Hdev20:
-        print("-2sd\n")
+    #print("Over the past 20 minutes, humidity is within:")
+    if humidity <= HmeanB - 2*HdevB:
+        #print("-2sd\n")
         sense.set_pixel(1, 1, 255, 0, 0)
-    elif humidity <= Hmean20 - Hdev20:
-        print("-1sd\n")
+    elif humidity <= HmeanB - HdevB:
+        #print("-1sd\n")
         sense.set_pixel(1, 1, 255, 255, 0)
-    elif humidity >= Hmean20 + 2*Hdev20:
-        print("+2sd\n")
+    elif humidity >= HmeanB + 2*HdevB:
+        #print("+2sd\n")
         sense.set_pixel(1, 1, 255, 0, 0)
-    elif humidity >= Hmean20 + Hdev20:
-        print("+1sd\n")
+    elif humidity >= HmeanB + HdevB:
+        #print("+1sd\n")
         sense.set_pixel(1, 1, 255, 255, 0)
     else:
-        print("mean\n")
+        #print("mean\n")
         sense.set_pixel(1, 1, 0, 255, 0)
 
     # 30 min humidity test
-    print("Over the past 30 minutes, humidity is within:")
-    if humidity <= Hmean30 - 2*Hdev30:
-        print("-2sd\n")
+    #print("Over the past 30 minutes, humidity is within:")
+    if humidity <= HmeanC - 2*HdevC:
+        #print("-2sd\n")
         sense.set_pixel(2, 1, 255, 0, 0)
-    elif humidity <= Hmean30 - Hdev30:
-        print("-1sd\n")
+    elif humidity <= HmeanC - HdevC:
+        #print("-1sd\n")
         sense.set_pixel(2, 1, 255, 255, 0)
-    elif humidity >= Hmean30 + 2*Hdev30:
-        print("+2sd\n")
+    elif humidity >= HmeanC + 2*HdevC:
+        #print("+2sd\n")
         sense.set_pixel(2, 1, 255, 0, 0)
-    elif humidity >= Hmean30 + Hdev30:
-        print("+1sd\n")
+    elif humidity >= HmeanC + HdevC:
+        #print("+1sd\n")
         sense.set_pixel(2, 1, 255, 255, 0)
     else:
-        print("mean\n")
+        #print("mean\n")
         sense.set_pixel(2, 1, 0, 255, 0)
 
     # 10 min pressure test
-    print("Over the past 10 minutes, pressure is within:")
-    if pressure <= Pmean10 - 2*Pdev10:
-        print("-2sd\n")
+    #print("Over the past 10 minutes, pressure is within:")
+    if pressure <= PmeanA - 2*PdevA:
+        #print("-2sd\n")
         sense.set_pixel(0, 2, 255, 0, 0)
-    elif pressure <= Pmean10 - Pdev10:
-        print("-1sd\n")
+    elif pressure <= PmeanA - PdevA:
+        #print("-1sd\n")
         sense.set_pixel(0, 2, 255, 255, 0)
-    elif pressure >= Pmean10 + 2*Pdev10:
-        print("+2sd\n")
+    elif pressure >= PmeanA + 2*PdevA:
+        #print("+2sd\n")
         sense.set_pixel(0, 2, 255, 0, 0)
-    elif pressure >= Pmean10 + Pdev10:
-        print("+1sd\n")
+    elif pressure >= PmeanA + PdevA:
+        #print("+1sd\n")
         sense.set_pixel(0, 2, 255, 255, 0)
     else:
-        print("mean\n")
+        #print("mean\n")
         sense.set_pixel(0, 2, 0, 255, 0)
 
     # 20 min pressure test
-    print("Over the past 20 minutes, pressure is within:")
-    if pressure <= Pmean20 - 2*Pdev20:
-        print("-2sd\n")
+    #print("Over the past 20 minutes, pressure is within:")
+    if pressure <= PmeanB - 2*PdevB:
+        #print("-2sd\n")
         sense.set_pixel(1, 2, 255, 0, 0)
-    elif pressure <= Pmean20 - Pdev20:
-        print("-1sd\n")
+    elif pressure <= PmeanB - PdevB:
+        #print("-1sd\n")
         sense.set_pixel(1, 2, 255, 255, 0)
-    elif pressure >= Pmean20 + 2*Pdev20:
-        print("+2sd\n")
+    elif pressure >= PmeanB + 2*PdevB:
+        #print("+2sd\n")
         sense.set_pixel(1, 2, 255, 0, 0)
-    elif pressure >= Pmean20 + Pdev20:
-        print("+1sd\n")
+    elif pressure >= PmeanB + PdevB:
+        #print("+1sd\n")
         sense.set_pixel(1, 2, 255, 255, 0)
     else:
-        print("mean\n")
+        #print("mean\n")
         sense.set_pixel(1, 2, 0, 255, 0)
 
     # 30 min pressure test
-    print("Over the past 30 minutes, pressure is within:")
-    if pressure <= Pmean30 - 2*Pdev30:
-        print("-2sd\n")
+    #print("Over the past 30 minutes, pressure is within:")
+    if pressure <= PmeanC - 2*PdevC:
+        #print("-2sd\n")
         sense.set_pixel(2, 2, 255, 0, 0)
-    elif pressure <= Pmean30 - Pdev30:
-        print("-1sd\n")
+    elif pressure <= PmeanC - PdevC:
+        #print("-1sd\n")
         sense.set_pixel(2, 2, 255, 255, 0)
-    elif pressure >= Pmean30 + 2*Pdev30:
-        print("+2sd\n")
+    elif pressure >= PmeanC + 2*PdevC:
+        #print("+2sd\n")
         sense.set_pixel(2, 2, 255, 0, 0)
-    elif pressure >= Pmean30 + Pdev30:
-        print("+1sd\n")
+    elif pressure >= PmeanC + PdevC:
+        #print("+1sd\n")
         sense.set_pixel(2, 2, 255, 255, 0)
     else:
-        print("mean\n")
+        #print("mean\n")
         sense.set_pixel(2, 2, 0, 255, 0)
 
 sched.start()

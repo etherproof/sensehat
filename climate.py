@@ -13,9 +13,18 @@ from datetime import datetime
 from apscheduler.schedulers.blocking import BlockingScheduler
 sched = BlockingScheduler()
 
+import pandas as pd
+import numpy as np
+
+# Create CSV file with relevant headers
+f= open("/home/pi/Desktop/climatestation/climate.csv", "w+")
+f.write("timestamp, T, H, P \n")
+f.close()
+
 # Take readings every 60 seconds
 @sched.scheduled_job('interval', seconds=60)
 def timed_job():
+    ## MEASUREMENT ##    
     # Take readings
     humidity = sense.get_humidity()
     temp = sense.get_temperature()
@@ -28,7 +37,8 @@ def timed_job():
     print("Pressure:\t %s Millibars\n" % round(pressure, 1))
 
     # Write (append) readings to CSV.
-    f= open("climate.csv", "a+")
+    f= open("/home/pi/Desktop/climatestation/climate.csv", "a")
     f.write("%s, %f, %f, %f \n" % (datetime.now(), temp, humidity, pressure))
     f.close()
+    
 sched.start()
