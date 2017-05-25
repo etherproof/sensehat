@@ -20,13 +20,14 @@ import numpy as np
 # Create dataframe for readings
 readings = pd.DataFrame()
 
-# Clear LED panel
+# Clear LED panel, set to low light
 sense.clear()
+sense.low_light = True
 
 
 # Take readings every 60 seconds
 @sched.scheduled_job('interval', seconds=60)
-def timed_job():
+def take_readings():
     ## MEASUREMENT ##    
     # Take readings
     timestamp = str(datetime.now())
@@ -250,5 +251,10 @@ def timed_job():
     else:
         #print("mean\n")
         sense.set_pixel(2, 2, 0, 255, 0)
+
+@sched.scheduled_job('interval', seconds=3600)
+def store_readings():
+    timestamp = str(datetime.now())    
+    readings.to_csv('/home/pi/Desktop/climatestation/reading\ %s.csv' % timestamp)
 
 sched.start()
